@@ -1,0 +1,31 @@
+1、安装git服务环境准备
+yum -y install curl curl-devel zlib-devel openssl-devel perl cpio expat-devel gettext-devel gcc cc
+2、下载git-2.5.0.tar.gz
+1）解压缩
+2）cd git-2.5.0
+3）autoconf
+4）./configure
+5）make
+6）make install
+3、添加用户
+adduser -r -s /bin/sh -c 'git version control' -d /home/git git
+4、设置/home/git文件夹操作权限
+mkdir /home/git
+chown git:git /home/git
+5、设置密码
+passwd git
+输入两次密码
+6、切换到git用户
+su git
+7、创建git仓库
+git init /home/git/first
+使用此方法初始化仓库后，提交master分支时报错。需要修改
+这是由于git默认拒绝了push操作，需要进行设置，修改.git/config添加如下代码：
+[receive]
+      denyCurrentBranch = ignore
+推荐使用：git --bare init初始化仓库。
+
+8、使用客户端连接git
+ssh://git@192.168.25.156/home/git/first
+用户名：git
+密码：git
